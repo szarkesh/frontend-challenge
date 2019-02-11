@@ -2,10 +2,20 @@ import React from 'react'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
 import {findDOMNode} from 'react-dom'
-import {DragSource, DropTarget, ConnectDropTarget, ConnectDragSource, DropTargetMonitor, DropTargetConnector, DragSourceConnector, DragSourceMonitor} from 'react-dnd'
+import {DragSource,
+  DropTarget,
+  ConnectDropTarget,
+  ConnectDragSource, DropTargetMonitor,
+  DropTargetConnector,
+  DragSourceConnector,
+  DragSourceMonitor} from 'react-dnd'
 import flow from 'lodash/flow'
 
+//The DraggableCartComponent class generates a draggable course button in
+//the cart, given the text of the button as a prop (from cart.js)
+//this class is called by Cart.js
 
+//source for dragging
 const cardSource = {
   beginDrag(props){
     return{
@@ -14,6 +24,8 @@ const cardSource = {
     }
   }
 }
+
+// determines the current target of the drag operation
 const cardTarget = {
   hover(props, monitor, component){
     const dragIndex = monitor.getItem().index
@@ -43,12 +55,7 @@ const cardTarget = {
 
 class DraggableCartComponent extends React.Component{
   render(){
-    const{
-      text,
-      isDragging,
-      connectDragSource,
-      connectDropTarget,
-    } = this.props
+    const{ text, isDragging, connectDragSource, connectDropTarget } = this.props
     const opaque = isDragging ? 0 : 1;
     return (
       connectDragSource &&
@@ -60,6 +67,8 @@ class DraggableCartComponent extends React.Component{
   }
 }
 
+//uses flow class to allow for same object to be drag source and drag target
+//since we need to drag these buttons over each other to change the order.
 export default flow(
   DragSource(
     'cart',

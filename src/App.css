@@ -5,6 +5,7 @@
   border-color: #528b8d;
   border-width: 2px;
   font-weight: bold;
+  min-width: 120px;
   margin: 10px 20px 10px 20px;
   font-size: 1em;
   max-width: 80%;

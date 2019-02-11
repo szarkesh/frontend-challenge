@@ -5,56 +5,34 @@ import { DragDropContext } from 'react-dnd'
 import DragButton from './DragButton'
 import { DropTarget } from 'react-dnd'
 
+//Main class to represent courses and handle showing descriptions, dragging
+//courses to the cart
 class Courses extends React.Component {
     constructor(props) {
         super(props);
 
-        var credits = []
-        var requests = []
-        for (var i=0; i<courses.length; i++){
-          var searchReq = 'https://api.pennlabs.org/registrar/search?q=' + courses[i].dept + "-" + courses[i].number.toString();
-          var apiRequest = fetch(searchReq).then(function(response){
-                return response.json()
-          });
-          requests.push(apiRequest);
-        }
-        console.log("number of requests" + requests.length);
-        var output = [];
-
-        Promise.all(requests).then(
-            function(values){
-            for (var i=0; i<values.length; i++){
-              output.push(values[i])
-            }
-            return output;
-          });
-
-        console.log(output);
+        // fetches API (not working, waiting on response from Cameron)
+        // var credits = []
+        // var requests = []
         // for (var i=0; i<courses.length; i++){
-        //     var searchReq = 'https://api.pennlabs.org/registrar/search?q=' + courses[i].dept + "-" + courses[i].number.toString();
-        //     console.log(searchReq);
-        //     fetch(searchReq)
-        //         .then(
-        //           function(response) {
-        //             if (response.status !== 200) {
-        //               console.log('Looks like there was a problem. Status Code: ' +
-        //                 response.status);
-        //               return;
-        //             }
-        //
-        //             // Examine the text in the response
-        //             response.json().then(function(data) {
-        //               console.log(searchReq)
-        //               console.log(data);
-        //               credits.append(data.courses[0].credits)
-        //             });
-        //           }
-        //         )
-        //         .catch(function(err) {
-        //           console.log('Fetch Error :-S', err);
-        //         });
+        //   var searchReq = 'https://api.pennlabs.org/registrar/search?q=' + courses[i].dept + "-" + courses[i].number.toString();
+        //   var apiRequest = fetch(searchReq).then(function(response){
+        //         return response.json()
+        //   });
+        //   requests.push(apiRequest);
         // }
-        //console.log(this.state.credits);
+        // console.log("number of requests" + requests.length);
+
+        // var output = [];
+        // Promise.all(requests).then(
+        //     function(values){
+        //     for (var i=0; i<values.length; i++){
+        //       output.push(values[i])
+        //     }
+        //     return output;
+        //   });
+        //
+        // console.log(output);
 
         this.state = {
             popup: false,
@@ -67,36 +45,31 @@ class Courses extends React.Component {
 
     }
 
+    // when item dropped in the cart, adds the course to cart
     dropItem(e){
       this.addCourseToCart(e);
     }
-    setPopupTrue(number){
-      if(number == this.state.courseClicked){
-        this.setState(state => ({
-  						popup: false,
-              courseClicked: 0
-  				}));
-      }
 
-      else{
-        this.setState(state => ({
-  						popup: true,
-              courseClicked: number
-  				}));
-      }
+    // updates the state to have description open for course passed in
+    // actual rendering done in render()
+    openCourseDescription(number){
+      this.setState(state => ({
+						popup: true,
+            courseClicked: number
+				}));
     }
 
-    closePopup(){
+    //closes any description that may be open
+    closeCourseDescription(){
       this.setState(state => ({
             popup: false,
             courseClicked: 0
         }));
     }
 
+    //adds a course, given by its number, to the cart
     addCourseToCart(number){
-      console.log("TRYING TO ADD" + number);
-      if(this.state.coursesInCart.indexOf(number)>=0){
-        console.log("course already in cart");
+      if(this.state.coursesInCart.indexOf(number)>=0){ // if already in cart return
         return;
       }
       var current = this.state.coursesInCart;
@@ -104,21 +77,23 @@ class Courses extends React.Component {
       this.setState(state => ({
             coursesInCart: current
         }));
-      console.log("after adding" + this.state.coursesInCart)
     }
 
+    //removes a course, given by its number, from the cart
     removeCourseFromCart(number){
-        console.log("what the courses should be"  + this.state.coursesInCart.filter(i => i != number));
         this.setState(state => ({
               coursesInCart: this.state.coursesInCart.filter(i => i != number)
           }));
     }
 
+    //updates the search query state and closes any open descriptions when search
+    //query changed
     handleSearchChange(event){
       this.setState({popup:false, courseClicked:0, search: event.target.value});
       this.forceUpdate()
-      console.log(this.state.value);
     }
+
+    //renders the course cart, as well as the course list
     render(){
         return(
           <div>
@@ -135,7 +110,7 @@ class Courses extends React.Component {
                 description.toLowerCase().includes(this.state.search.toLowerCase())) &&
                     <div>
                       { number.toString() == this.state.courseClicked
-                        ?   <div class="courseDescription" style={{borderRadius: "5px"}} onClick={() => this.setPopupTrue(number.toString())}>
+                        ?   <div class="courseDescription" style={{borderRadius: "5px"}} onClick={() => this.closeCourseDescription()}>
                             <div class="leftRight">
                                 <p> <b>{dept} {number}: {title}</b> </p>
                                 {(prereqs!=undefined) &&
@@ -149,7 +124,7 @@ class Courses extends React.Component {
                               }
                             </div>
                           </div>
-                        : <DragButton key={1} name={dept + " " + number.toString()} id={number.toString()} course=<button>hi</button> handleDrop={(e)=> this.dropItem(e)} onClick={()=>this.setPopupTrue(number.toString())}/>
+                        : <DragButton key={1} name={dept + " " + number.toString()} id={number.toString()} course=<button>hi</button> handleDrop={(e)=> this.dropItem(e)} onClick={()=>this.openCourseDescription(number.toString())}/>
                       }
                     </div>
                   }

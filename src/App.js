@@ -12,9 +12,13 @@ class App extends Component {
   dropItem(id){
       console.log("Item dropped");
   }
+
+  handleClick(){
+    console.log("click processed");
+  }
   render() {
     return (
-      <div style={{width:'100%'}}>
+      <div onClick={this.handleClick} style={{width:'100%', overflow:'hidden'}}>
         <Nav />
         <div style={{
           width: '100%',
@@ -22,7 +26,7 @@ class App extends Component {
           padding: '0 calc(1rem + 10%)',
           marginBottom: '10px',
         }}>
-          <Courses />
+          <Courses/>
         </div>
       </div>
     );
