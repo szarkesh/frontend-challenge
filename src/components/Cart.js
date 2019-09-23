@@ -1,7 +1,6 @@
 import React from 'react'
 import courses from '../data/courses'
 import jsPDF from 'jspdf'
-import DragButton from './DragButton'
 import { DropTarget } from 'react-dnd'
 import DraggableCartComponent from './DraggableCartComponent'
 

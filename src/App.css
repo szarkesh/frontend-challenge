@@ -1,8 +1,23 @@
 .courseElementButton{
-  background-color: #86b7b8;
   padding: 10px 20px;
   border-radius:8px;
   border-color: #528b8d;
+  border-width: 2px;
+  font-weight: bold;
+  min-width: 130px;
+  margin: 10px 20px 10px 20px;
+  font-size: 1em;
+  max-width: 80%;
+  outline-style:none;
+  width:100px;
+  color: white;
+  transition: all 0.1s ease 0s;
+  background-color: #86b7b8;
+}
+
+.inCart{
+  padding: 10px 20px;
+  border-radius:8px;
   border-width: 2px;
   font-weight: bold;
   min-width: 120px;
@@ -10,8 +25,11 @@
   font-size: 1em;
   max-width: 80%;
   outline-style:none;
+  width:100px;
   color: white;
   transition: all 0.1s ease 0s;
+  background-color: #00cc66;
+  border-color: #00cc66;
 }
 
 .cartElementButton{
@@ -62,6 +80,7 @@
 }
 
 .container{
+  min-width: 500px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

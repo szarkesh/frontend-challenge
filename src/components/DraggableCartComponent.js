@@ -9,6 +9,7 @@ import {DragSource,
   DropTargetConnector,
   DragSourceConnector,
   DragSourceMonitor} from 'react-dnd'
+import {Modal} from 'react-materialize'
 import flow from 'lodash/flow'
 
 //The DraggableCartComponent class generates a draggable course button in

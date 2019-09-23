@@ -2,23 +2,19 @@ import React, { Component } from 'react'
 import './App.css'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
-import DragButton from './components/DragButton'
+import DragButton from './components/DraggableCourseButton'
 import DraggableCartComponent from './components/DraggableCartComponent'
 import Nav from './components/Nav'
-import Courses from './components/Courses'
+import Main from './components/Main'
 import Cart from './components/Cart'
 
 class App extends Component {
   dropItem(id){
       console.log("Item dropped");
   }
-
-  handleClick(){
-    console.log("click processed");
-  }
   render() {
     return (
-      <div onClick={this.handleClick} style={{width:'100%', overflow:'hidden'}}>
+      <div style={{width:'100%', overflow:'hidden'}}>
         <Nav />
         <div style={{
           width: '100%',
@@ -26,7 +22,7 @@ class App extends Component {
           padding: '0 calc(1rem + 10%)',
           marginBottom: '10px',
         }}>
-          <Courses/>
+          <Main/>
         </div>
       </div>
     );
