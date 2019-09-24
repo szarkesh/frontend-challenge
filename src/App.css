@@ -13,6 +13,13 @@
   color: white;
   transition: all 0.1s ease 0s;
   background-color: #86b7b8;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.18), 0 6px 10px 0 rgba(0, 0, 0, 0.13);
+}
+
+:focus {outline:0 !important;}
+
+:active {
+  background-color: none;
 }
 
 .inCart{
@@ -51,6 +58,11 @@
   background:#528b8d
 }
 
+.courseElementButton:target{
+  background:none
+}
+
+
 .exportButton{
   background-color: #3498DB;
   padding: 10px 20px;
@@ -66,7 +78,7 @@
 .addRemoveButton{
   background-color: #3498DB;
   padding: 10px 20px;
-  margin-bottom: 10px;
+  margin-bottom: -20px;
   border-radius:20px;
   outline-style:none;
   transition: all 0.3s ease 0s;
@@ -79,7 +91,7 @@
   background: #3071A9
 }
 
-.container{
+.flexbox{
   min-width: 500px;
   display: flex;
   flex-direction: row;
@@ -115,10 +127,10 @@
 }
 
 .courseDescription{
-  border-style:solid;
+  /* border-style:solid;
   border-offset: 10px;
   border-width:1px;
-  border-radius: 5px;
+  border-radius: 5px; */
   padding: 0px 10px;
   margin-bottom: 10px;
   outline-color: #86b7b8;
@@ -126,8 +138,18 @@
 }
 
 .search{
+  margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.grid{
+  display:grid
+}
+
+.grid-item {
+  grid-column-start: 1;
+  grid-column-end: 4;
 }

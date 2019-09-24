@@ -32,9 +32,7 @@ class DragButton extends React.Component{
   render(){
     const {isDragging, connectDragSource, course} = this.props;
     return connectDragSource(
-      <div>
-        <button class="courseElementButton" onClick={this.props.onClick}>{this.props.name}{this.props.inCart && <span> &#10004; </span>}</button>
-      </div>
+        <button className="courseElementButton" onClick={this.props.onClick}>{this.props.name}{this.props.inCart && <span> &#10004; </span>}</button>
     );
   }
 }

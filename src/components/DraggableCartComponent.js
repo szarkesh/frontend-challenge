@@ -2,13 +2,7 @@ import React from 'react'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
 import {findDOMNode} from 'react-dom'
-import {DragSource,
-  DropTarget,
-  ConnectDropTarget,
-  ConnectDragSource, DropTargetMonitor,
-  DropTargetConnector,
-  DragSourceConnector,
-  DragSourceMonitor} from 'react-dnd'
+import {DragSource, DropTarget} from 'react-dnd'
 import {Modal} from 'react-materialize'
 import flow from 'lodash/flow'
 
@@ -18,8 +12,8 @@ import flow from 'lodash/flow'
 
 //source for dragging
 const cardSource = {
-  beginDrag(props){
-    return{
+  beginDrag(props) {
+    return {
       id: props.id,
       index: props.index,
     }
@@ -28,23 +22,23 @@ const cardSource = {
 
 // determines the current target of the drag operation
 const cardTarget = {
-  hover(props, monitor, component){
+  hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index
     const hoverIndex = props.index
 
-    if(dragIndex === hoverIndex){
+    if (dragIndex === hoverIndex) {
       return;
     }
 
-    const hoverBoundingRect = (findDOMNode(component,)).getBoundingClientRect()
+    const hoverBoundingRect = (findDOMNode(component, )).getBoundingClientRect()
 
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top)/2
+    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
 
     const clientOffset = monitor.getClientOffset();
 
-    const hoverClientY =  clientOffset.y - hoverBoundingRect.top
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
-    if(dragIndex < hoverIndex && hoverClientY< hoverMiddleY){
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
       return;
     }
 
